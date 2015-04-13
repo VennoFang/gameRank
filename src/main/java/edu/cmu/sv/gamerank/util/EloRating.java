@@ -1,5 +1,6 @@
 package edu.cmu.sv.gamerank.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.cmu.sv.gamerank.model.Game;
@@ -9,14 +10,28 @@ import edu.cmu.sv.gamerank.model.Player;
 
 public class EloRating {
 	
-	public void test(Game game) {
-		Convert convert = new Convert();
+	public static void test(Game game) {
 		List<Player> players = game.getAllPlayers();
-		List<Integer> temp =  convert.convert(players);
+		List<Integer> temp =  Convert.convert(players);
 		for(int i=0; i<players.size(); i++) {
-			players.get(i).getRate(temp);
+			players.get(i).setRate(temp);
 		}
-		
+	}
+	public static void main(String[] args) {
+		Player a = new Player(2,"a");
+		Player b = new Player(1,"b");
+		Player c = new Player(3,"b");
+		List<Player> ap = new ArrayList<Player>();
+		ap.add(a);
+		ap.add(b);
+		ap.add(c);
+		Game g = new Game();
+		g.setAllPlayers(ap);
+		test(g);
+		for(int i=0; i<g.getAllPlayers().size(); i++) {
+			
+			System.out.println(g.getAllPlayers().get(i).getRate());
+		}
 	}
 	
 }

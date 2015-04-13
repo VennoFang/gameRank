@@ -9,6 +9,12 @@ public class Player {
 	private int rank;
 	private double rate;
 	
+	public Player(int score, String name) {
+		super();
+		this.score= score;
+		this.name = name;
+	}
+	
 	public int getRank() {
 		return rank;
 	}
@@ -16,15 +22,17 @@ public class Player {
 	public void setRank(int rank) {
 		this.rank = rank;
 	}
-	
-	public double getRate(List<Integer> scores) {
+	public double getRate() {
+		return rate;
+	}
+	public void setRate(List<Integer> scores) {
 		int count = scores.size();
 		for(int i=0; i<scores.size(); i++) {
 			if(score>scores.get(i)) {
 				count--;
 			}
 		}
-		return rate = count/scores.size();
+		rate = (double)count/(double)scores.size();
 		
 	}
 
