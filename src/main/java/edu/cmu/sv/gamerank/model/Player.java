@@ -1,5 +1,6 @@
 package edu.cmu.sv.gamerank.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Player {
@@ -7,8 +8,19 @@ public class Player {
 	private int score = 1500;
 	private static final int K = 32;
 	private int rank;
-	private double rate;
+	private double temprate;
+	private int numOfGame = 0;
+	private HashMap<String, Integer> scores = new HashMap<String, Integer>();
 	
+	
+	public int getNumOfGame() {
+		return numOfGame;
+	}
+
+	public void setNumOfGame(int numOfGame) {
+		this.numOfGame = numOfGame;
+	}
+
 	public Player(int score, String name) {
 		super();
 		this.score= score;
@@ -23,8 +35,9 @@ public class Player {
 		this.rank = rank;
 	}
 	public double getRate() {
-		return rate;
+		return temprate;
 	}
+	
 	public void setRate(List<Integer> scores) {
 		int count = scores.size();
 		for(int i=0; i<scores.size(); i++) {
@@ -32,7 +45,7 @@ public class Player {
 				count--;
 			}
 		}
-		rate = (double)count/(double)scores.size();
+		temprate = (double)count/(double)scores.size();
 		
 	}
 
@@ -40,9 +53,9 @@ public class Player {
 //	public Double getExp(Long scoreB) {
 //		return exp = 1/(1 + Math.pow(10, (scoreB - score)/400));
 //	}
-	public void rating(int newScore, int gotScore) {
-		Double  exp = 1/(1 + Math.pow(10, (newScore - score)/400));
-		score = (int) (score + K * (gotScore - exp));
+	public void rating(int average, double actualRate) {
+		Double  exp = 1/(1 + Math.pow(10, (average - score)/400));
+		score = (int) (score + K * (actualRate - exp));
 	}
 
 	public String getName() {

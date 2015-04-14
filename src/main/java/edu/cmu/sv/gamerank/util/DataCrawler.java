@@ -11,6 +11,7 @@ import java.util.List;
 import org.json.*;
 
 import edu.cmu.sv.gamerank.model.Game;
+import edu.cmu.sv.gamerank.model.Player;
 
 public class DataCrawler {
 
@@ -61,15 +62,17 @@ public class DataCrawler {
     		Game result = new Game();
     		result.setName("OsuGame"+type+":"+subType);
     		String rawData = crawlOSU(type,subType);
-    		System.out.println(rawData);
+    		//System.out.println(rawData);
     		JSONArray arr = new JSONArray(rawData);
-    		List<String> players = new ArrayList<String>();
+    		List<Player> players = new ArrayList<Player>();
     		for (int i = 0; i < arr.length(); i++)
     		{
     		    String pName = arr.getJSONObject(i).getString("username");
-    		    players.add(pName);
+    		    String score = arr.getJSONObject(i).getString("score");
+    		    Player p = new Player(Integer.parseInt(score), pName);
+    		    players.add(p);
     		}
-    		result.setPlayers(players);
+    		result.setAllPlayers(players);
     		return result;
     		
     }

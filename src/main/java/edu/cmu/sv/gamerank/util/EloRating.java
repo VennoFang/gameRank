@@ -1,7 +1,10 @@
 package edu.cmu.sv.gamerank.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONException;
 
 import edu.cmu.sv.gamerank.model.Game;
 import edu.cmu.sv.gamerank.model.Player;
@@ -17,7 +20,7 @@ public class EloRating {
 			players.get(i).setRate(temp);
 		}
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException, JSONException {
 		Player a = new Player(2,"a");
 		Player b = new Player(1,"b");
 		Player c = new Player(3,"b");
@@ -25,8 +28,9 @@ public class EloRating {
 		ap.add(a);
 		ap.add(b);
 		ap.add(c);
-		Game g = new Game();
-		g.setAllPlayers(ap);
+		Game g = DataCrawler.getOsuGame(3, 252002);
+		
+		//g.setAllPlayers(ap);
 		test(g);
 		for(int i=0; i<g.getAllPlayers().size(); i++) {
 			
