@@ -17,6 +17,26 @@ public class Convert {
 		return res;
 	}
 	
+	public static int listAverage(List<Player> players) {
+		int average = 0;
+		int sum = 0;
+		//int count = 0;
+		for(int i=0; i<players.size(); i++) {
+			sum = sum + players.get(i).getScore();
+		}
+		average = sum/players.size();
+		return average;
+}
+	public static double getRating(int score, List<Integer> s) {
+		double rate = 1;
+		double count = 0;
+		for(int i=0; i<s.size(); i++) {
+			if(score<s.get(i)) count++;
+		}
+		rate = 1-count/(double)s.size();
+		return rate;
+	}
+	
 	public static int hashmapAverage(HashMap<String, Integer> score) {
 		int average = 0;
 		int sum = 0;
