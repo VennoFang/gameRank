@@ -54,7 +54,7 @@ public class DataCrawler {
     {
     		//you can change to any number: the first number in 0..3,
     		//the second number from 1..~300K,some of them without results.
-        getOsuGame(3,252002);
+        getOsuGame(2,252003);
     }
 	
     public static Game getOsuGame(int type,int subType) throws IOException, JSONException
@@ -65,14 +65,19 @@ public class DataCrawler {
     		//System.out.println(rawData);
     		JSONArray arr = new JSONArray(rawData);
     		List<Player> players = new ArrayList<Player>();
+    		//System.out.println(arr.length());
     		for (int i = 0; i < arr.length(); i++)
     		{
-    		    String pName = arr.getJSONObject(i).getString("username");
+    		    //String pName = arr.getJSONObject(i).getString("username");
+    			String pName = "p" + i;
+    			//System.out.println(pName);
     		    String score = arr.getJSONObject(i).getString("score");
-    		    Player p = new Player(Integer.parseInt(score), pName);
-    		    players.add(p);
+    		    //Player p = new Player(Integer.parseInt(score), pName);
+    		    //players.add(p);
+    		    result.addScores(pName, Integer.parseInt(score));
+    		    result.addS(Integer.parseInt(score));
     		}
-    		result.setAllPlayers(players);
+    		
     		return result;
     		
     }
