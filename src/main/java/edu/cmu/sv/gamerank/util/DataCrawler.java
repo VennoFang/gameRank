@@ -70,9 +70,10 @@ public class DataCrawler {
     		{
     		    //String pName = arr.getJSONObject(i).getString("username");
     			String pName = "p" + i;
-    			//System.out.println(pName);
+    			
     		    String score = arr.getJSONObject(i).getString("score");
     		    //Player p = new Player(Integer.parseInt(score), pName);
+    		    System.out.println(pName+": "+ score);
     		    //players.add(p);
     		    result.addScores(pName, Integer.parseInt(score));
     		    result.addS(Integer.parseInt(score));
