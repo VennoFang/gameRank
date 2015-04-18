@@ -13,6 +13,7 @@ import edu.cmu.sv.gamerank.model.Player;
 
 public class EloRating {
 	
+	/*
 	public static void test(Game game) {
 		List<Player> players = game.getAllPlayers();
 		List<Integer> temp =  Convert.convert(players);
@@ -37,5 +38,6 @@ public class EloRating {
 			System.out.println(g.getAllPlayers().get(i).getRate());
 		}
 	}
+	*/
 	
 }

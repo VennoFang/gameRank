@@ -1,50 +1,26 @@
 package edu.cmu.sv.gamerank.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
+import edu.cmu.sv.gamerank.Constant;
+
 public class Game {
-	private String name;
-	private List<String> players;
-	private List<Player> allPlayers;
-	private HashMap<String, Integer> scores = new HashMap<String, Integer>();
-	private List<Integer> s =  new ArrayList<Integer>();
+	public String name;
+	public List<Player> allPlayers = new ArrayList<Player>();
 	
-	public void addS(int score) {
-		s.add(score);
-	}
+	//for cache usage
+	public double average;
 	
-	public List<Integer> getS() {
-		return s;
-	}
-	public void addScores(String name, Integer score) {
-		scores.put(name, score);
-	}
-	public HashMap<String, Integer> getScores() {
-		return scores;
-	}
-	public List<Player> getAllPlayers() {
-		return allPlayers;
-	}
-	public void setAllPlayers(List<Player> allPlayers) {
-		this.allPlayers = allPlayers;
-	}
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	public List<String> getPlayers() {
-		return players;
-	}
-	public void setPlayers(List<String> players) {
-		this.players = players;
-	}
-	public void initial() {
-		
+	public double getAverage()
+	{
+		if(allPlayers.size() == 0) return Constant.startingRating;
+		double ratingTotal = 0;
+		for(Player p: allPlayers)
+		{
+			ratingTotal += p.score;
+		}
+		average = ratingTotal / allPlayers.size();
+		return average;
 	}
 }

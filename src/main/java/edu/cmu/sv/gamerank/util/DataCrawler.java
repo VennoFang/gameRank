@@ -3,9 +3,11 @@ package edu.cmu.sv.gamerank.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.json.*;
@@ -52,31 +54,65 @@ public class DataCrawler {
 	
     public static void main( String[] args ) throws IOException, JSONException
     {
+    		PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
+    		Date d1 = new Date();
     		//you can change to any number: the first number in 0..3,
     		//the second number from 1..~300K,some of them without results.
-        getOsuGame(2,252003);
+        int count = 0;
+        int request = 0;
+    		for(int j = 0; j < 100000; j++)
+        {
+    			
+        		for(int i = 0; i < 4; i++)
+        		{
+        			request++;
+        			Date d2 = new Date();
+        			long t1 = d1.getTime();
+        			long t2 = d2.getTime();
+        			System.out.println("Request per second:"+1.0*request/(t2-t1)*1000);
+        			//System.out.println("Trying "+i+" at "+j);
+        			getOsuGame(i,j);
+        			if(total!="")
+        			{
+        				count++;
+        				System.out.println(count+" of 4");
+        				//System.out.println(total);
+        				writer.print(total);
+        				try {
+							Thread.sleep(0);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+        			}
+        			else i=10;
+        			if(count > 1000) return;
+        		}
+        }
+    		writer.close();
     }
 	
+    public static String total;
+    
     public static Game getOsuGame(int type,int subType) throws IOException, JSONException
     {
     		Game result = new Game();
-    		result.setName("OsuGame"+type+":"+subType);
+    		total = "";
+    		String gameName = "OsuGame"+type+":"+subType;
+    		result.name="OsuGame"+type+":"+subType;
     		String rawData = crawlOSU(type,subType);
-    		//System.out.println(rawData);
     		JSONArray arr = new JSONArray(rawData);
-    		List<Player> players = new ArrayList<Player>();
-    		//System.out.println(arr.length());
     		for (int i = 0; i < arr.length(); i++)
     		{
-    		    //String pName = arr.getJSONObject(i).getString("username");
-    			String pName = "p" + i;
-    			
+    		    String pName = arr.getJSONObject(i).getString("username");
+    			String pName2 = pName.replaceAll("\\s+", "_");
     		    String score = arr.getJSONObject(i).getString("score");
     		    //Player p = new Player(Integer.parseInt(score), pName);
-    		    System.out.println(pName+": "+ score);
+    		    //System.out.println(pName+": "+ score);
+    			Player p = new Player(pName);
+    			result.allPlayers.add(p);
     		    //players.add(p);
-    		    result.addScores(pName, Integer.parseInt(score));
-    		    result.addS(Integer.parseInt(score));
+    		    total += gameName+" \t "+pName2+" \t"+score+" \n";
     		}
     		
     		return result;

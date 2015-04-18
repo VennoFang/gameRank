@@ -9,6 +9,7 @@ import java.util.Map;
 import edu.cmu.sv.gamerank.model.Player;
 
 public class Convert {
+	/*
 	public static List<Integer> convert(List<Player> players) {
 		List<Integer> res = new ArrayList<Integer>();
 		for(int i=0; i<players.size(); i++) {
@@ -50,5 +51,5 @@ public class Convert {
 		average = sum/count;
 		return average;
 	}
-
+	*/
 }
