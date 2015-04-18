@@ -1,55 +1,40 @@
 package edu.cmu.sv.gamerank.util;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import edu.cmu.sv.gamerank.model.AllGamesLocal;
 import edu.cmu.sv.gamerank.model.Player;
 
 public class Convert {
-	/*
-	public static List<Integer> convert(List<Player> players) {
-		List<Integer> res = new ArrayList<Integer>();
-		for(int i=0; i<players.size(); i++) {
-			res.add(players.get(i).getScore());
-		}
-		return res;
-	}
 	
-	public static int listAverage(List<Player> players) {
-		int average = 0;
-		int sum = 0;
-		//int count = 0;
-		for(int i=0; i<players.size(); i++) {
-			sum = sum + players.get(i).getScore();
+	public static AllGamesLocal readFile(String path)
+	{
+		BufferedReader br = null;
+		try {
+			br = new BufferedReader(new FileReader(path));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return null;
 		}
-		average = sum/players.size();
-		return average;
-}
-	public static double getRating(int score, List<Integer> s) {
-		double rate = 1;
-		double count = 0;
-		for(int i=0; i<s.size(); i++) {
-			if(score<s.get(i)) count++;
+		String sCurrentLine;
+		try {
+			while ((sCurrentLine = br.readLine()) != null) {
+				System.out.println(sCurrentLine);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		rate = 1-count/(double)s.size();
-		return rate;
+		return null;
 	}
-	
-	public static int hashmapAverage(HashMap<String, Integer> score) {
-		int average = 0;
-		int sum = 0;
-		int count = 0;
-		Iterator<Map.Entry<String, Integer>> iterator = score.entrySet().iterator();
-		while(iterator.hasNext()) {
-			Map.Entry<String, Integer> entry = iterator.next();
-			sum = sum + entry.getValue();
-			count++;
-		}
-		average = sum/count;
-		return average;
-	}
-	*/
 }
