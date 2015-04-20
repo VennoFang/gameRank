@@ -29,13 +29,9 @@ public class AppTest
    
    public static void getRawData() throws IOException, JSONException {
 
-	   EloRatingCalculation.data = Convert.readFile("/Users/linlee/Documents/workspace/18645final/gameRank/the-file-name.txt");
-	   if(1+1==2) return;
-	   for(int i= 0; i < 10; i++) 
-		   {
-		   		Game g1 = DataCrawler.getOsuGame(3, 252002);
-		   		EloRatingCalculation.addGame(g1);
-		   }
+	   EloRatingCalculation.data = Convert.readFile("data100000.txt");
+	   EloRatingCalculation.k = 2;
+	   EloRatingCalculation.totalIterations = 16;
 	   EloRatingCalculation.run();
 	 
 	   

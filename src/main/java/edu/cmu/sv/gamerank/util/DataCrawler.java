@@ -54,13 +54,13 @@ public class DataCrawler {
 	
     public static void main( String[] args ) throws IOException, JSONException
     {
-    		PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
+    		PrintWriter writer = new PrintWriter("data100000.txt", "UTF-8");
     		Date d1 = new Date();
     		//you can change to any number: the first number in 0..3,
     		//the second number from 1..~300K,some of them without results.
         int count = 0;
         int request = 0;
-    		for(int j = 0; j < 100000; j++)
+    		for(int j = 0; j < 700000; j++)
         {
     			
         		for(int i = 0; i < 4; i++)
@@ -69,24 +69,29 @@ public class DataCrawler {
         			Date d2 = new Date();
         			long t1 = d1.getTime();
         			long t2 = d2.getTime();
-        			System.out.println("Request per second:"+1.0*request/(t2-t1)*1000);
+        			//System.out.println("Request per second:"+1.0*request/(t2-t1)*1000);
         			//System.out.println("Trying "+i+" at "+j);
-        			getOsuGame(i,j);
+        			try
+        			{
+        				getOsuGame(i,j);
+        			}
+        			catch(Exception e)
+        			{
+        				System.out.println("Error getting OSU data " +e.getMessage());
+        			}
         			if(total!="")
         			{
         				count++;
-        				System.out.println(count+" of 4");
+        				if(count % 100 == 0) System.out.println(count+" of no limitation");
         				//System.out.println(total);
         				writer.print(total);
-        				try {
-							Thread.sleep(0);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
         			}
         			else i=10;
-        			if(count > 1000) return;
+        			if(count > 9999999)
+        			{
+        				writer.close();
+        				return;
+        			}
         		}
         }
     		writer.close();
