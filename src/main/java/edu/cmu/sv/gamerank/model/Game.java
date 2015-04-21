@@ -23,4 +23,12 @@ public class Game {
 		average = ratingTotal / allPlayers.size();
 		return average;
 	}
+	public Game(String _name, Player player)
+	{
+		name = _name;
+		allPlayers.add(player);
+	}
+	public Game() {
+		
+	}
 }

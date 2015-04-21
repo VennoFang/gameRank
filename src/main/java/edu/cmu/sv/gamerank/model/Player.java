@@ -1,8 +1,10 @@
 package edu.cmu.sv.gamerank.model;
 
+import java.io.Serializable;
+
 import edu.cmu.sv.gamerank.*;
 
-public class Player {
+public class Player implements Serializable {
 	public String name;
 	public double score;
 	
