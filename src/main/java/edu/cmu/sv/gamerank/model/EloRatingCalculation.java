@@ -15,7 +15,7 @@ public class EloRatingCalculation {
 		data.allGames.add(g);
 	}
 	
-	public static int k = 32;
+	public static int k = 2;
 	
 	public static int totalIterations = 1;
 	
@@ -41,6 +41,7 @@ public class EloRatingCalculation {
 		    Player value = entry.getValue();
 		    writer.println(key+" "+(int)value.score);
 		}
+		writer.close();
 	}
 	
 	public static void iteration() throws Exception

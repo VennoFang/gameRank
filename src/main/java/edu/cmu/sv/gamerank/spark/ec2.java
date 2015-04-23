@@ -1,41 +1,29 @@
 package edu.cmu.sv.gamerank.spark;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 import java.util.regex.Pattern;
-import java.util.Iterator;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.api.java.function.FlatMapFunction;
-import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
 
-import edu.cmu.sv.gamerank.model.EloRatingCalculation;
+import scala.Tuple2;
 import edu.cmu.sv.gamerank.model.Game;
 import edu.cmu.sv.gamerank.model.Player;
-import edu.cmu.sv.gamerank.spark.Spark.AvgCount;
-import scala.Tuple2;
 
-public class gameRank {
-	
-	//public static Map<String,Player> map = new HashMap<String ,Player>();
+public class ec2 {
 	private static final Pattern SPACES = Pattern.compile("\\s+");
 	public static void main(String[] args) throws Exception {
 		//Map<String,Player> map = new HashMap<String ,Player>();
-		SparkConf sparkConf = new SparkConf().setAppName("GameRank").setMaster("spark://VennoMBP.sv.cmu.local:7077");
+		SparkConf sparkConf = new SparkConf().setAppName("GameRank");
 		JavaSparkContext ctx = new JavaSparkContext(sparkConf);
-	    JavaRDD<String> lines = ctx.textFile("/Users/Venno/Documents/CMU Course/HWFC/Team project/dataAll", 1);
+	    JavaRDD<String> lines = ctx.textFile("s3n://venno.gamerank/dataAll.txt", 1);
 	    //initial all players scores to 1500
 	    JavaPairRDD<String, Player> allPlayers = lines.mapToPair(new PairFunction<String, String, Player>() {
 	        public Tuple2<String, Player> call(String s) {
@@ -84,7 +72,7 @@ public class gameRank {
 		}
 		//writer.close();
 		JavaPairRDD<String, Integer> rank = ctx.parallelizePairs(re);
-		rank.saveAsTextFile("/Users/Venno/Documents/CMU Course/HWFC/Team project/out");
+		rank.saveAsTextFile("s3n://venno.gamerank/output");
 		
 	}
 	
@@ -132,5 +120,5 @@ public class gameRank {
 			
 		}
 			
-	
+
 }

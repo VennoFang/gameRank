@@ -1,11 +1,12 @@
 package edu.cmu.sv.gamerank.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.cmu.sv.gamerank.Constant;
 
-public class Game {
+public class Game implements Serializable{
 	public String name;
 	public List<Player> allPlayers = new ArrayList<Player>();
 	
@@ -30,5 +31,8 @@ public class Game {
 	}
 	public Game() {
 		
+	}
+	public void add(Game b) {
+		allPlayers.addAll(b.allPlayers);
 	}
 }
